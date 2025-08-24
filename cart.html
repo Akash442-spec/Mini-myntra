@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>Cart - Mini Myntra</title>
+  <style>
+    body { font-family: Arial; background: #fff8f0; margin: 0; }
+    h1 { color: #ff6600; margin: 20px; }
+
+    .navbar {
+      background: #ff6600;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin-left: 15px;
+      font-weight: bold;
+    }
+    .navbar a:hover { text-decoration: underline; }
+    .cart-link { position: relative; display: inline-block; }
+    .cart-badge {
+      position: absolute; top: -8px; right: -12px;
+      background: white; color: #ff6600; font-size: 12px;
+      font-weight: bold; border-radius: 50%;
+      padding: 3px 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    table { width: 90%; margin: 20px auto; border-collapse: collapse; }
+    th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+    th { background: #ff6600; color: white; }
+    .btn { background: #ff6600; color: white; padding: 6px 12px; border: none; border-radius: 5px; cursor: pointer; }
+    .btn:hover { background: #e65c00; }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div><b>Mini Myntra</b></div>
+    <div>
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('cart') }}" class="cart-link">🛒 Cart
+        {% if cart_count > 0 %}<span class="cart-badge">{{ cart_count }}</span>{% endif %}
+      </a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+  </div>
+
+  <h1>Your Cart</h1>
+  <table>
+    <tr><th>Product</th><th>Price</th><th>Action</th></tr>
+    {% for item in cart %}
+    <tr>
+      <td>{{ item.name }}</td>
+      <td>₹{{ item.price }}</td>
+      <td><a href="{{ url_for('remove_from_cart', product_id=item.id) }}"><button class="btn">Remove</button></a></td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <td colspan="2"><b>Total</b></td>
+      <td><b>₹{{ total }}</b></td>
+    </tr>
+  </table>
+  {% if cart|length > 0 %}
+  <div style="width: 90%; margin: 0 auto 40px; text-align: right;">
+    <form action="{{ url_for('buy_now') }}" method="post" style="display:inline;">
+      <button type="submit" class="btn" style="font-size:16px; padding:10px 18px;">
+        Buy Now
+      </button>
+    </form>
+  </div>
+{% endif %}
+
+</body>
+</html>

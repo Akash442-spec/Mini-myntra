@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Placed - Mini Myntra</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body { font-family: Arial, sans-serif; background: #fff8f0; margin: 0; }
+    .navbar {
+      background: #ff6600; padding: 15px 20px; color: white;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .navbar a { color: white; text-decoration: none; font-weight: bold; margin-left: 15px; }
+    .container { max-width: 800px; margin: 40px auto; background: #fff; padding: 24px;
+                 border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    h1 { color: #ff6600; margin-top: 0; }
+    .meta { color: #444; margin-bottom: 12px; }
+    .btn { background: #ff6600; color: white; padding: 10px 16px; border: none; border-radius: 6px; cursor: pointer; }
+    .btn:hover { background: #e65c00; }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div><b>Mini Myntra</b></div>
+    <div>
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('cart') }}">Cart</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Thank you! Your order is placed 🎉</h1>
+    <div class="meta">Order ID: <b>#{{ order.id }}</b></div>
+    <div class="meta">Placed by: <b>{{ order.username }}</b></div>
+    <div class="meta">Items: <b>{{ order.items }}</b></div>
+    <div class="meta">Total Paid: <b>₹{{ order.total }}</b></div>
+    <br>
+    <a href="{{ url_for('home') }}"><button class="btn">Continue Shopping</button></a>
+  </div>
+</body>
+</html>
