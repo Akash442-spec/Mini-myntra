@@ -1,0 +1,2 @@
+# Mini-myntra
+Demo project
